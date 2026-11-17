@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vendr-config
+  namespace: vendr
+data:
+  NODE_ENV: "production"
+  PORT_API: "4000"
+  PORT_ADMIN: "3001"
+  PORT_STOREFRONT: "3000"
+  REDIS_URL: "redis://vendr-redis:6379"

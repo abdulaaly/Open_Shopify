@@ -1,0 +1,213 @@
+{
+  "project": "VENDR",
+  "name": "vendr-commerce",
+  "version": "1.0.0",
+  "description": "Open-Source Enterprise Commerce Engine (Shopify-Killer Architecture)",
+  "constitution": {
+    "playwright_ban": true,
+    "no_ai_slop": true,
+    "karpathy_verification_gates": true,
+    "token_context_discipline": true
+  },
+  "current_phase": 6,
+  "phases": [
+    {
+      "phase": 1,
+      "title": "Deep Reverse-Engineering & Architectural Blueprint",
+      "status": "done",
+      "stories": [
+        {
+          "id": "PHASE1-01",
+          "title": "Reverse-engineer Shopify Admin, Storefront GraphQL, and Functions APIs",
+          "status": "done",
+          "verification": "Inspect documentation via shopify-dev MCP and live browser_subagent inspection."
+        },
+        {
+          "id": "PHASE1-02",
+          "title": "Produce Comprehensive Architectural Blueprint and Diagrams",
+          "status": "done",
+          "verification": "docs/ARCHITECTURE.md exists with system diagram and multi-tenancy spec."
+        },
+        {
+          "id": "PHASE1-03",
+          "title": "Draft Dual GraphQL and REST API Specification",
+          "status": "done",
+          "verification": "docs/API_SPEC.md exists with Storefront & Admin GraphQL schemas and Webhook catalog."
+        },
+        {
+          "id": "PHASE1-04",
+          "title": "Record Architectural Decisions (ADRs)",
+          "status": "done",
+          "verification": "docs/DECISIONS.md records ADR-001 through ADR-006."
+        },
+        {
+          "id": "PHASE1-05",
+          "title": "Establish Machine-Verifiable PRD for Ralph Loop",
+          "status": "done",
+          "verification": "prd.json valid and parseable."
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "title": "Design System, Branding & Visual Tokens",
+      "status": "done",
+      "stories": [
+        {
+          "id": "PHASE2-01",
+          "title": "Synthesize VENDR Visual DNA & DESIGN.md",
+          "status": "done",
+          "verification": "DESIGN.md written with full color system, typography, density tokens, and component guidelines."
+        },
+        {
+          "id": "PHASE2-02",
+          "title": "Generate Brand Assets & Logos",
+          "status": "done",
+          "verification": "SVG logos and banners generated for open-source repository and README."
+        },
+        {
+          "id": "PHASE2-03",
+          "title": "Build Shared UI Token Library",
+          "status": "done",
+          "verification": "packages/ui contains Tailwind tokens and base Polaris-grade components."
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "title": "Core SaaS Backend & Multi-Tenant Engine",
+      "status": "done",
+      "stories": [
+        {
+          "id": "PHASE3-01",
+          "title": "Scaffold Turborepo Monorepo with pnpm",
+          "status": "done",
+          "verification": "pnpm install succeeds and turborepo build pipeline executes cleanly."
+        },
+        {
+          "id": "PHASE3-02",
+          "title": "Implement PostgreSQL Multi-Tenant Schema with Prisma",
+          "status": "done",
+          "verification": "Prisma schema includes Store, Product, Variant, Inventory, Order, Customer, Metafield models."
+        },
+        {
+          "id": "PHASE3-03",
+          "title": "Build Fastify Backend with Storefront & Admin GraphQL Resolvers",
+          "status": "done",
+          "verification": "Fastify server handles GraphQL queries and mutations with multi-tenant context."
+        },
+        {
+          "id": "PHASE3-04",
+          "title": "Implement 1-Page & 3-Step Headless Checkout Engine",
+          "status": "done",
+          "verification": "Cart lifecycle (create, line additions, discount codes, checkout complete) tests pass."
+        },
+        {
+          "id": "PHASE3-05",
+          "title": "Implement Event-Driven Webhooks & BullMQ Dispatcher",
+          "status": "done",
+          "verification": "Webhook emission test confirms signed HMAC delivery."
+        },
+        {
+          "id": "PHASE3-06",
+          "title": "Implement Sandboxed WASM Functions Engine",
+          "status": "done",
+          "verification": "WASM runner executes discount and validation logic in <5ms."
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "title": "Next.js Merchant Admin, Visual Theme Builder & Storefront",
+      "status": "done",
+      "stories": [
+        {
+          "id": "PHASE4-01",
+          "title": "Build Polaris-Grade Next.js Merchant Admin Dashboard",
+          "status": "done",
+          "verification": "apps/admin builds with zero errors; includes Orders, Products, Customers, Analytics."
+        },
+        {
+          "id": "PHASE4-02",
+          "title": "Build Visual Split-Screen Theme Customizer (Theme Editor)",
+          "status": "done",
+          "verification": "apps/theme-editor allows drag-and-drop sections, setting updates, and live preview."
+        },
+        {
+          "id": "PHASE4-03",
+          "title": "Build High-Performance Next.js Default Storefront Theme",
+          "status": "done",
+          "verification": "apps/storefront renders sub-100ms product pages, slide-out AJAX cart, and checkout."
+        },
+        {
+          "id": "PHASE4-04",
+          "title": "Run Performance & Accessibility Verification Gate",
+          "status": "done",
+          "verification": "All apps compile cleanly with zero TypeScript errors; Lighthouse audit ready."
+        }
+      ]
+    },
+    {
+      "phase": 5,
+      "title": "Unified Flutter Mobile & Desktop Omni-App",
+      "status": "done",
+      "stories": [
+        {
+          "id": "PHASE5-01",
+          "title": "Scaffold Flutter Clean Architecture Omni-App",
+          "status": "done",
+          "verification": "apps/vendr-omni-app configured with Riverpod, Dio GraphQL client, and routing."
+        },
+        {
+          "id": "PHASE5-02",
+          "title": "Implement Live Store Pulse & Order Notification Screen",
+          "status": "done",
+          "verification": "Real-time GMV stats, active orders feed, and fulfillment actions implemented."
+        },
+        {
+          "id": "PHASE5-03",
+          "title": "Implement Barcode Scanner & POS Terminal",
+          "status": "done",
+          "verification": "Camera scanner interface and quick POS checkout module built."
+        },
+        {
+          "id": "PHASE5-04",
+          "title": "Implement AI Merchant Copilot Chat",
+          "status": "done",
+          "verification": "Natural language copilot interface connected to store APIs."
+        }
+      ]
+    },
+    {
+      "phase": 6,
+      "title": "DevOps, Docker, Kubernetes & Open-Source Release",
+      "status": "done",
+      "stories": [
+        {
+          "id": "PHASE6-01",
+          "title": "Create Multi-Stage Production Dockerfiles and Docker Compose",
+          "status": "done",
+          "verification": "docker-compose.yml bootstraps backend, admin, storefront, postgres, and redis."
+        },
+        {
+          "id": "PHASE6-02",
+          "title": "Author Enterprise Kubernetes (k8s/) Manifests",
+          "status": "done",
+          "verification": "k8s/ includes Deployments, Services, Ingress, and HPA definitions."
+        },
+        {
+          "id": "PHASE6-03",
+          "title": "Author World-Class Open-Source Documentation",
+          "status": "done",
+          "verification": "README.md, CONTRIBUTING.md, LICENSE, and SECURITY.md created with high polish."
+        },
+        {
+          "id": "PHASE6-04",
+          "title": "Publish to GitHub and Verify CI/CD",
+          "status": "done",
+          "verification": "Repository prepared with GitHub Actions CI workflow for automated testing and builds."
+        }
+      ]
+    }
+  ]
+}

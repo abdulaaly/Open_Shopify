@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vendr
+  labels:
+    app.kubernetes.io/name: vendr
+    app.kubernetes.io/part-of: vendr-commerce

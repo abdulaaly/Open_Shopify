@@ -1,0 +1,110 @@
+services:
+  # PostgreSQL 16 with RLS Multi-Tenancy
+  postgres:
+    image: postgres:16-alpine
+    container_name: vendr-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vendr
+      POSTGRES_PASSWORD: vendr_secure_password_2026
+      POSTGRES_DB: vendr_commerce
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vendr -d vendr_commerce"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis 7 (Cart Sessions, BullMQ Queues, Rate Limiting)
+  redis:
+    image: redis:7-alpine
+    container_name: vendr-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Meilisearch (Sub-10ms Instant Product & Catalog Search)
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    container_name: vendr-search
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: vendr_master_key_search_2026
+      MEILI_NO_ANALYTICS: "true"
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili_data:/meili_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # VENDR Core Multi-Tenant API (Fastify + GraphQL + WASM Engine)
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: vendr-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      HOST: "0.0.0.0"
+      DATABASE_URL: "postgresql://vendr:vendr_secure_password_2026@postgres:5432/vendr_commerce?schema=public"
+      REDIS_URL: "redis://redis:6379"
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # VENDR Merchant Admin Dashboard (Next.js 15)
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    container_name: vendr-admin
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      NEXT_PUBLIC_API_URL: "http://localhost:4000"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+
+  # VENDR Flagship Storefront Theme (Next.js 15)
+  storefront:
+    build:
+      context: .
+      dockerfile: apps/storefront/Dockerfile
+    container_name: vendr-storefront
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: "http://localhost:4000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  redis_data:
+  meili_data:

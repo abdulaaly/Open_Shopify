@@ -1,0 +1,349 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Tenant {
+  id           String        @id @default(uuid())
+  name         String
+  slug         String        @unique
+  domain       String?       @unique
+  currencyCode String        @default("USD")
+  timezone     String        @default("UTC")
+  plan         String        @default("ENTERPRISE")
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  users        User[]
+  products     Product[]
+  collections  Collection[]
+  locations    Location[]
+  orders       Order[]
+  customers    Customer[]
+  discounts    Discount[]
+  webhooks     Webhook[]
+  metafields   Metafield[]
+  metaobjects  Metaobject[]
+
+  @@map("tenants")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  tenantId     String
+  email        String
+  passwordHash String
+  firstName    String?
+  lastName     String?
+  role         String   @default("MERCHANT_ADMIN")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant       Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@map("users")
+}
+
+model Product {
+  id              String           @id @default(uuid())
+  tenantId        String
+  title           String
+  handle          String
+  description     String
+  descriptionHtml String?
+  vendor          String           @default("Default")
+  productType     String           @default("General")
+  status          String           @default("ACTIVE")
+  tags            String[]         @default([])
+  images          String[]         @default([])
+  options         Json             @default("[]")
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  tenant          Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  variants        ProductVariant[]
+  collectionItems ProductCollectionItem[]
+
+  @@unique([tenantId, handle])
+  @@index([tenantId, status])
+  @@map("products")
+}
+
+model ProductVariant {
+  id                String           @id @default(uuid())
+  productId         String
+  title             String
+  sku               String
+  barcode           String?
+  price             Decimal          @default(0.0)
+  compareAtPrice    Decimal?
+  weight            Decimal?
+  requiresShipping  Boolean          @default(true)
+  selectedOptions   Json             @default("[]")
+  image             String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  product           Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  inventoryLevels   InventoryLevel[]
+  orderLineItems    OrderLineItem[]
+
+  @@unique([productId, sku])
+  @@index([productId])
+  @@map("product_variants")
+}
+
+model Location {
+  id                   String           @id @default(uuid())
+  tenantId             String
+  name                 String
+  address1             String
+  city                 String
+  province             String?
+  country              String
+  zip                  String
+  fulfillsOnlineOrders Boolean          @default(true)
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  tenant               Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  inventoryLevels      InventoryLevel[]
+  fulfillments         Fulfillment[]
+
+  @@index([tenantId])
+  @@map("locations")
+}
+
+model InventoryLevel {
+  id           String         @id @default(uuid())
+  variantId    String
+  locationId   String
+  available    Int            @default(0)
+  reserved     Int            @default(0)
+  onHand       Int            @default(0)
+  updatedAt    DateTime       @updatedAt
+
+  variant      ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  location     Location       @relation(fields: [locationId], references: [id], onDelete: Cascade)
+
+  @@unique([variantId, locationId])
+  @@index([variantId])
+  @@index([locationId])
+  @@map("inventory_levels")
+}
+
+model Collection {
+  id          String                  @id @default(uuid())
+  tenantId    String
+  title       String
+  handle      String
+  description String?
+  image       String?
+  rules       Json?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+
+  tenant      Tenant                  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  products    ProductCollectionItem[]
+
+  @@unique([tenantId, handle])
+  @@index([tenantId])
+  @@map("collections")
+}
+
+model ProductCollectionItem {
+  productId    String
+  collectionId String
+
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+
+  @@id([productId, collectionId])
+  @@map("product_collection_items")
+}
+
+model Customer {
+  id             String    @id @default(uuid())
+  tenantId       String
+  email          String
+  firstName      String?
+  lastName       String?
+  phone          String?
+  totalSpent     Decimal   @default(0.0)
+  ordersCount    Int       @default(0)
+  tags           String[]  @default([])
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  tenant         Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  addresses      Address[]
+  orders         Order[]
+
+  @@unique([tenantId, email])
+  @@index([tenantId])
+  @@map("customers")
+}
+
+model Address {
+  id         String    @id @default(uuid())
+  customerId String?
+  firstName  String?
+  lastName   String?
+  company    String?
+  address1   String
+  address2   String?
+  city       String
+  province   String?
+  country    String
+  zip        String
+  phone      String?
+  isDefault  Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+
+  customer   Customer? @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  @@map("addresses")
+}
+
+model Order {
+  id                 String          @id @default(uuid())
+  tenantId           String
+  orderNumber        Int
+  name               String
+  email              String
+  financialStatus    String          @default("PAID")
+  fulfillmentStatus  String          @default("UNFULFILLED")
+  currencyCode       String          @default("USD")
+  subtotalPrice      Decimal
+  totalTax           Decimal         @default(0.0)
+  totalShipping      Decimal         @default(0.0)
+  totalDiscounts     Decimal         @default(0.0)
+  totalPrice         Decimal
+  customerId         String?
+  shippingAddress    Json?
+  billingAddress     Json?
+  note               String?
+  tags               String[]        @default([])
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  tenant             Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  customer           Customer?       @relation(fields: [customerId], references: [id])
+  lineItems          OrderLineItem[]
+  fulfillments       Fulfillment[]
+
+  @@unique([tenantId, orderNumber])
+  @@index([tenantId, financialStatus])
+  @@index([tenantId, fulfillmentStatus])
+  @@map("orders")
+}
+
+model OrderLineItem {
+  id                String          @id @default(uuid())
+  orderId           String
+  variantId         String?
+  title             String
+  variantTitle      String?
+  sku               String?
+  quantity          Int
+  price             Decimal
+  totalDiscount     Decimal         @default(0.0)
+  fulfillmentStatus String          @default("UNFULFILLED")
+
+  order             Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant           ProductVariant? @relation(fields: [variantId], references: [id])
+
+  @@index([orderId])
+  @@map("order_line_items")
+}
+
+model Fulfillment {
+  id              String    @id @default(uuid())
+  orderId         String
+  locationId      String?
+  status          String    @default("SUCCESS")
+  trackingCompany String?
+  trackingNumber  String?
+  trackingUrl     String?
+  createdAt       DateTime  @default(now())
+
+  order           Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  location        Location? @relation(fields: [locationId], references: [id])
+
+  @@index([orderId])
+  @@map("fulfillments")
+}
+
+model Discount {
+  id         String    @id @default(uuid())
+  tenantId   String
+  code       String
+  type       String    @default("PERCENTAGE")
+  value      Decimal
+  usageCount Int       @default(0)
+  startsAt   DateTime  @default(now())
+  endsAt     DateTime?
+  createdAt  DateTime  @default(now())
+
+  tenant     Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@map("discounts")
+}
+
+model Webhook {
+  id        String   @id @default(uuid())
+  tenantId  String
+  topic     String
+  endpoint  String
+  secret    String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, topic])
+  @@map("webhooks")
+}
+
+model Metafield {
+  id        String   @id @default(uuid())
+  tenantId  String
+  ownerType String
+  ownerId   String
+  namespace String
+  key       String
+  type      String   @default("single_line_text_field")
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, ownerType, ownerId, namespace, key])
+  @@index([tenantId, ownerType, ownerId])
+  @@map("metafields")
+}
+
+model Metaobject {
+  id         String   @id @default(uuid())
+  tenantId   String
+  type       String
+  handle     String
+  fields     Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, type, handle])
+  @@index([tenantId, type])
+  @@map("metaobjects")
+}

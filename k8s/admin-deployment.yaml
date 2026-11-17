@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vendr-admin
+  namespace: vendr
+  labels:
+    app: vendr-admin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vendr-admin
+  template:
+    metadata:
+      labels:
+        app: vendr-admin
+    spec:
+      containers:
+        - name: admin
+          image: ghcr.io/abdulaaly/vendr-admin:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: vendr-config
+          env:
+            - name: NEXT_PUBLIC_API_URL
+              value: "http://vendr-api:4000"
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "800m"
+              memory: "1024Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vendr-admin
+  namespace: vendr
+spec:
+  selector:
+    app: vendr-admin
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001

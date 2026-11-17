@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vendr-storefront
+  namespace: vendr
+  labels:
+    app: vendr-storefront
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: vendr-storefront
+  template:
+    metadata:
+      labels:
+        app: vendr-storefront
+    spec:
+      containers:
+        - name: storefront
+          image: ghcr.io/abdulaaly/vendr-storefront:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: vendr-config
+          env:
+            - name: NEXT_PUBLIC_API_URL
+              value: "http://vendr-api:4000"
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "800m"
+              memory: "1024Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vendr-storefront
+  namespace: vendr
+spec:
+  selector:
+    app: vendr-storefront
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
