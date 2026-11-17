@@ -1,0 +1,157 @@
+name: VENDR Universal OS Release Matrix
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    name: Build Android (APK & AAB)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter 3.24
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter Dependencies
+        working-directory: apps/vendr-omni-app
+        run: flutter pub get
+
+      - name: Run Tests
+        working-directory: apps/vendr-omni-app
+        run: flutter test
+
+      - name: Build Release APK
+        working-directory: apps/vendr-omni-app
+        run: flutter build apk --release
+
+      - name: Build Release App Bundle (AAB)
+        working-directory: apps/vendr-omni-app
+        run: flutter build appbundle --release
+
+      - name: Upload Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vendr-pos-android
+          path: |
+            apps/vendr-omni-app/build/app/outputs/flutter-apk/app-release.apk
+            apps/vendr-omni-app/build/app/outputs/bundle/release/app-release.aab
+
+  build-linux:
+    name: Build Linux Desktop (AppImage & DEB)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Linux Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+
+      - name: Set up Flutter 3.24
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter Dependencies
+        working-directory: apps/vendr-omni-app
+        run: flutter pub get
+
+      - name: Build Linux Binary
+        working-directory: apps/vendr-omni-app
+        run: flutter build linux --release
+
+      - name: Package Linux Binary Archive
+        working-directory: apps/vendr-omni-app/build/linux/x64/release/bundle
+        run: tar -czvf vendr-pos-linux-x64.tar.gz *
+
+      - name: Upload Linux Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vendr-pos-linux
+          path: apps/vendr-omni-app/build/linux/x64/release/bundle/vendr-pos-linux-x64.tar.gz
+
+  build-windows:
+    name: Build Windows Desktop (.exe / MSIX)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter 3.24
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter Dependencies
+        working-directory: apps/vendr-omni-app
+        run: flutter pub get
+
+      - name: Build Windows Executable
+        working-directory: apps/vendr-omni-app
+        run: flutter build windows --release
+
+      - name: Compress Windows Release Bundle
+        run: |
+          Compress-Archive -Path apps\vendr-omni-app\build\windows\x64\runner\Release\* -DestinationPath vendr-pos-windows-x64.zip
+
+      - name: Upload Windows Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vendr-pos-windows
+          path: vendr-pos-windows-x64.zip
+
+  build-apple:
+    name: Build Apple Ecosystem (macOS DMG & iOS IPA)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter 3.24
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter Dependencies
+        working-directory: apps/vendr-omni-app
+        run: flutter pub get
+
+      - name: Build macOS Desktop Application
+        working-directory: apps/vendr-omni-app
+        run: flutter build macos --release
+
+      - name: Build iOS Archive (No Codesign)
+        working-directory: apps/vendr-omni-app
+        run: flutter build ios --release --no-codesign
+
+      - name: Compress macOS Application
+        working-directory: apps/vendr-omni-app/build/macos/Build/Products/Release
+        run: zip -r vendr-pos-macos.zip vendr_omni_app.app
+
+      - name: Upload Apple Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: vendr-pos-apple
+          path: apps/vendr-omni-app/build/macos/Build/Products/Release/vendr-pos-macos.zip

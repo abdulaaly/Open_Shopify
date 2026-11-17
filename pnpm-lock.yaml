@@ -360,12 +360,61 @@ importers:
         specifier: ^5.7.3
         version: 5.9.3
 
+  apps/web-marketing:
+    dependencies:
+      '@vendr/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@vendr/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-react:
+        specifier: ^1.16.0
+        version: 1.73.0(@types/react@19.3.0)(react@19.3.1)
+      next:
+        specifier: ^15.1.7
+        version: 15.5.29(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      react:
+        specifier: ^19.0.0
+        version: 19.3.1
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.3.1(react@19.3.1)
+      tailwind-merge:
+        specifier: ^3.0.2
+        version: 3.7.0
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.20.5
+      '@types/react':
+        specifier: ^19.0.10
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19.0.4
+        version: 19.3.0(@types/react@19.3.0)
+      postcss:
+        specifier: ^8.5.2
+        version: 8.5.33
+      tailwindcss:
+        specifier: ^3.4.17
+        version: 3.4.19(tsx@4.23.15)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
+
   packages/database:
     dependencies:
       '@prisma/client':
         specifier: ^6.4.1
         version: 6.19.3(prisma@6.19.3(typescript@5.9.3))(typescript@5.9.3)
     devDependencies:
+      '@types/node':
+        specifier: ^22.13.4
+        version: 22.20.5
       prisma:
         specifier: ^6.4.1
         version: 6.19.3(typescript@5.9.3)

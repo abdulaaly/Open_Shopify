@@ -1,6 +1,5 @@
 name: vendr_omni_app
-description: "VENDR Sovereign Omni-App (iOS, Android, Windows, macOS) POS & Merchant Admin"
-publish_to: "none"
+description: "VENDR Sovereign Omni-App (iOS, Android, Windows, macOS, Linux) POS & Merchant Admin"
 version: 1.0.0+1
 
 environment:
