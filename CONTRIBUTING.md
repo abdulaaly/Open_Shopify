@@ -1,6 +1,6 @@
-# Contributing to VENDR
+# Contributing to Open Shopify
 
-Thank you for your interest in contributing to **VENDR**! We are building the sovereign, open-source enterprise alternative to Shopify.
+Thank you for your interest in contributing to **Open Shopify**! We are building the sovereign, open-source enterprise alternative to Shopify.
 
 ---
 
@@ -10,12 +10,13 @@ We are committed to providing a welcoming, inclusive, and harassment-free enviro
 ---
 
 ## 2. Monorepo Organization
-VENDR uses Turborepo with pnpm workspaces:
-- `apps/api`: Fastify core backend (Storefront & Admin GraphQL).
-- `apps/admin`: Merchant Admin dashboard (Next.js 15).
-- `apps/storefront`: Default Storefront theme (Next.js 15).
+Open Shopify uses Turborepo with pnpm workspaces:
+- `apps/api`: Fastify core backend (Storefront & Admin APIs, multi-tenant resolution).
+- `apps/web-marketing`: Public marketing and store provisioning engine (`shopify.com` parity).
+- `apps/admin`: Merchant Admin dashboard with Polaris design system (Next.js 15).
+- `apps/storefront`: Sovereign Storefront theme with instant cart and checkout (Next.js 15).
 - `apps/theme-editor`: Split-screen Visual Theme Customizer (Next.js 15).
-- `apps/vendr-omni-app`: Flutter cross-platform mobile & desktop client.
+- `apps/omnishop`: Flutter cross-platform mobile & desktop client (iOS, Android, Windows, macOS, Linux).
 - `packages/ui`: Shared Polaris-grade UI token and component library.
 - `packages/database`: Prisma schema and migrations with RLS.
 - `packages/types`: Shared TypeScript entity definitions.

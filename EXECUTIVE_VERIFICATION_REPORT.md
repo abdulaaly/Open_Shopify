@@ -28,7 +28,7 @@
 | **Phase 2** | Design System, Branding & Visual Tokens | **DONE** | [`DESIGN.md`](DESIGN.md), StitchMCP (`12249555369565147728`), SVG branding suite, [`packages/ui`](packages/ui) |
 | **Phase 3** | Core SaaS Backend & Multi-Tenant Engine | **DONE** | PostgreSQL Prisma RLS schema, Fastify edge API, HMAC webhooks, [`packages/wasm-engine`](packages/wasm-engine) |
 | **Phase 4** | Merchant Admin, Theme Builder & Storefront | **DONE** | Polaris-grade [`apps/admin`](apps/admin), split-screen [`apps/theme-editor`](apps/theme-editor), flagship [`apps/storefront`](apps/storefront) |
-| **Phase 5** | Unified Flutter Mobile & Desktop Omni-App | **DONE** | Clean architecture Riverpod app in [`apps/vendr-omni-app`](apps/vendr-omni-app) with POS barcode viewfinder & AI copilot |
+| **Phase 5** | Unified Flutter Mobile & Desktop Omni-App | **DONE** | Clean architecture Riverpod app in [`apps/omnishop`](apps/omnishop) with multi-device account sync, POS barcode viewfinder & AI copilot |
 | **Phase 6** | DevOps, Docker, Kubernetes & Release | **DONE** | Production multi-stage `Dockerfile`s, `docker-compose.yml`, `k8s/` manifests, and GitHub Actions CI |
 | **Phase 7** | Live Adversarial Audit vs Real Shopify.com | **DONE** | Subagent live browser inspection of `shopify.com` & `shopify.dev` -> [`docs/AUDIT_VS_SHOPIFY.md`](docs/AUDIT_VS_SHOPIFY.md) |
 | **Phase 8** | Enterprise Marketing Experience | **DONE** | [`apps/web-marketing`](apps/web-marketing) with interactive theme switcher, dynamic ROI calculator, and WASM playground |
@@ -91,7 +91,7 @@ Open_Shopify/
 │   ├── api/                                # Fastify Core Multi-Tenant GraphQL & REST API
 │   ├── storefront/                         # High-converting Next.js 15 Default Theme Storefront
 │   ├── theme-editor/                       # Split-screen drag-and-drop Visual Storefront Customizer
-│   ├── vendr-omni-app/                     # Flutter Clean Architecture Omni-App & POS Terminal
+│   ├── omnishop/                           # Flutter Clean Architecture Omni-App & POS Terminal (iOS, Android, Desktop)
 │   │   ├── android/                        # Android platform runner
 │   │   ├── ios/                            # iOS platform runner
 │   │   ├── linux/                          # Linux desktop GTK runner

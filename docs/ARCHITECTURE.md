@@ -193,9 +193,10 @@ VENDR implements an embedded WASM engine via `wasmtime` / Node.js WASM sandbox:
 
 ---
 
-## 8. Cross-Platform Omni-App (Flutter Mobile & Desktop)
+## 8. Cross-Platform Omni-App (Flutter Mobile & Desktop: OmniShop)
 
-- **Single Codebase (`apps/vendr-omni-app`):** Targets iOS, Android, Windows, and macOS.
+- **Single Codebase (`apps/omnishop`):** Targets iOS, Android, Windows, macOS, and Linux. All devices are seamlessly synchronized to the merchant's Open Shopify account.
+- **Unified Multi-Device Account Sync:** Real-time account session service synchronizing inventory, orders, and POS terminals across phone, tablet, and desktop stations.
 - **State Management:** Riverpod 2.0 with code generation for type-safe reactive state.
 - **Hardware Integration:**
   - Camera-based barcode scanner (`mobile_scanner`) for real-time Point of Sale (POS) and inventory receiving.

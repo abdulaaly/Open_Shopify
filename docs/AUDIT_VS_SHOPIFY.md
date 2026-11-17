@@ -83,12 +83,12 @@ Shopify has pivoted from a traditional merchant web builder to a dual-engine jug
 ### 2.4 Omni-Channel & Client Architecture
 * **Shopify Experience:**
   * Separate native apps: Shopify Admin (React Native/native webview), Shopify POS (iPad/iOS and dedicated proprietary POS Go hardware costing $399-$799 per device), and Storefront (web-first).
-* **VENDR Omni-App (`apps/vendr-omni-app`):**
+* **OmniShop Client (`apps/omnishop`):**
   * **Single Unified Flutter Codebase** running identically across:
     * **Mobile:** iOS & Android (with camera barcode scanner, live sales feed, order fulfillment).
     * **Desktop:** Windows, macOS, Linux (full POS terminal with receipt printing, inventory auditing, offline sync).
     * **Web:** Web admin companion.
-  * Hardware agnostic: Runs on any standard Android/iOS phone, tablet, or off-the-shelf barcode scanner hardware.
+  * Hardware agnostic: Runs on any standard Android/iOS phone, tablet, or off-the-shelf barcode scanner hardware. All devices are connected and synchronized via a unified Open Shopify account.
 
 ---
 
@@ -97,7 +97,7 @@ Shopify has pivoted from a traditional merchant web builder to a dual-engine jug
 | Item # | Discrepancy / Requirement | Target Application | Remediation Action |
 | :---: | :--- | :--- | :--- |
 | **G-01** | Missing public enterprise marketing website | `apps/web-marketing` | Scaffold Next.js 15 marketing app with hero builder, ROI calculator, POS showcase, and developer playground. |
-| **G-02** | Flutter Omni-App runner configurations incomplete | `apps/vendr-omni-app` | Scaffold `linux/`, `windows/`, `macos/`, `ios/`, and `android/` platform runner directories. |
+| **G-02** | Flutter Omni-App runner configurations incomplete | `apps/omnishop` | Scaffold `linux/`, `windows/`, `macos/`, `ios/`, and `android/` platform runner directories with multi-device account sync. |
 | **G-03** | Missing multi-OS automated build matrix | `.github/workflows/` | Author `release-all-platforms.yml` compiling APK, IPA, Windows MSIX, macOS DMG, and Linux AppImage/deb. |
 | **G-04** | Live interactive theme customizer preview | `apps/web-marketing` | Embed mini-storefront preview widget with live palette and typography toggling. |
 | **G-05** | Live End-to-End verification | Monorepo | Execute multi-step user journey via `browser_subagent` across Storefront, Checkout, WASM discounts, and Admin. |

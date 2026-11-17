@@ -156,7 +156,7 @@
           "id": "PHASE5-01",
           "title": "Scaffold Flutter Clean Architecture Omni-App",
           "status": "done",
-          "verification": "apps/vendr-omni-app configured with Riverpod, Dio GraphQL client, and routing."
+          "verification": "apps/omnishop configured with Riverpod, Dio GraphQL client, connected device syncing, and routing."
         },
         {
           "id": "PHASE5-02",
@@ -278,9 +278,9 @@
       "stories": [
         {
           "id": "PHASE9-01",
-          "title": "Scaffold Complete OS Platform Runners in apps/vendr-omni-app",
+          "title": "Scaffold Complete OS Platform Runners in apps/omnishop",
           "status": "done",
-          "verification": "android, ios, windows, macos, and linux runner configs verified in apps/vendr-omni-app."
+          "verification": "android, ios, windows, macos, and linux runner configs verified in apps/omnishop."
         },
         {
           "id": "PHASE9-02",
