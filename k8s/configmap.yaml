@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: open-shopify-config
+  namespace: open-shopify
+data:
+  NODE_ENV: "production"
+  PORT_API: "4000"
+  PORT_ADMIN: "3001"
+  PORT_STOREFRONT: "3000"
+  REDIS_URL: "redis://open-shopify-redis:6379"

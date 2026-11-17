@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: open-shopify-ingress
+  namespace: open-shopify
+spec:
+  rules:
+    - host: admin.openshopify.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: open-shopify-admin
+                port:
+                  number: 3001
+    - host: api.openshopify.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: open-shopify-api
+                port:
+                  number: 4000
