@@ -1,0 +1,73 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: open-shopify-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: openshopify
+      POSTGRES_PASSWORD: openshopify_secure_password_2026
+      POSTGRES_DB: open_shopify
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: open-shopify-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: open-shopify-api
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      DATABASE_URL: "postgresql://openshopify:openshopify_secure_password_2026@postgres:5432/open_shopify?schema=public"
+      REDIS_URL: "redis://redis:6379"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - postgres
+      - redis
+
+  storefront:
+    build:
+      context: .
+      dockerfile: apps/storefront/Dockerfile
+    container_name: open-shopify-storefront
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      NEXT_PUBLIC_API_URL: "http://api:4000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  admin:
+    build:
+      context: .
+      dockerfile: apps/admin/Dockerfile
+    container_name: open-shopify-admin
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      NEXT_PUBLIC_API_URL: "http://api:4000"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  redis_data:
