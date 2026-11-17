@@ -24,7 +24,7 @@ export async function buildApp() {
     return {
       status: "ok",
       version: "1.0.0",
-      engine: "VENDR Sovereign Commerce Engine",
+      engine: "Open Shopify Commerce Engine",
       timestamp: new Date().toISOString(),
     };
   });

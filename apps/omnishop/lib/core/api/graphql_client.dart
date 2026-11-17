@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class VendrApiClient {
+class OpenShopifyApiClient {
   final String baseUrl;
   final String tenantSlug;
 
-  VendrApiClient({
+  OpenShopifyApiClient({
     this.baseUrl = "http://localhost:4000",
     this.tenantSlug = "apex-apparel",
   });

@@ -1,7 +1,7 @@
-# ⚔️ ADVERSARIAL AUDIT & BENCHMARK: VENDR VS. LIVE SHOPIFY ECOSYSTEM
+# ⚔️ ADVERSARIAL AUDIT & BENCHMARK: OPEN SHOPIFY VS. LIVE SHOPIFY ECOSYSTEM
 **Date:** November 2026  
 **Audited Targets:** `https://www.shopify.com`, `https://www.shopify.com/pricing`, `https://shopify.dev`  
-**Inspector:** VENDR Autonomous Swarm (`browser_subagent` live session `940b28af-2a35-40fe-a7a7-d267aba244eb`)  
+**Inspector:** Open Shopify Autonomous Swarm (`browser_subagent` live session `940b28af-2a35-40fe-a7a7-d267aba244eb`)  
 **Methodology:** Direct live DOM inspection, token extraction, pricing matrix analysis, developer platform evaluation, and comparative architectural grading.
 
 ---
@@ -13,8 +13,8 @@ Shopify has pivoted from a traditional merchant web builder to a dual-engine jug
 2. **The $27,600/yr Enterprise Moat (Shopify Plus):** Core architectural necessities—such as checkout customization, private custom WASM functions, multi-tenant inventory locations beyond 10, unlimited staff seats, and B2B wholesale rules—are locked behind a minimum **$2,300/month** ($27,600/year) contract.
 3. **Vendor Lock-in & Closed Source:** Closed runtime, proprietary Liquid extensions, and theme store monetization (15% platform cut).
 
-### VENDR Competitive Wedge ("The Open-Source Enterprise Killer")
-| Metric / Feature | Shopify (SaaS) | VENDR (`vendr-commerce`) | VENDR Advantage |
+### Open Shopify Competitive Wedge ("The Open-Source Enterprise Killer")
+| Metric / Feature | Shopify (SaaS) | Open Shopify (`open-shopify`) | Open Shopify Advantage |
 | :--- | :--- | :--- | :--- |
 | **License & Hosting** | Closed Proprietary Cloud | 100% Open Source (Apache 2.0) | Self-host anywhere (Docker, K8s, Bare Metal) |
 | **Platform Subscription** | $25/mo – $2,300+/mo | **$0 / month** | **$0 monthly overhead** |
@@ -23,7 +23,7 @@ Shopify has pivoted from a traditional merchant web builder to a dual-engine jug
 | **Custom WASM Functions** | Gated to Shopify Plus ($2,300/mo) | **Native Pure WASM Runner** | Sub-millisecond discount/cart functions on any instance |
 | **B2B & Wholesale Engine** | Gated to Shopify Plus ($2,300/mo) | **Built-in Multi-Tier Pricing** | Company accounts & payment terms included |
 | **API Latency** | ~80–180ms (Cloudflare + Rails/Go) | **<15ms Edge Fastify** | 5x–10x faster response times |
-| **Native Multi-Platform** | Fragmented Web / React Native | **Unified Flutter Clean Architecture** | 1 Codebase for iOS, Android, macOS, Win, Linux |
+| **Native Multi-Platform** | Fragmented Web / React Native | **Unified Flutter Clean Architecture (OmniShop)** | 1 Codebase for iOS, Android, macOS, Win, Linux |
 | **Agentic / MCP Support** | Proprietary UCP ecosystem | **Native Standard Model Context Protocol (MCP)** | Open agent tools for any LLM ecosystem |
 
 ---

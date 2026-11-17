@@ -42,12 +42,14 @@
 
 ---
 
-## ADR-005: Unified Omni-Platform Client via Flutter
+## ADR-005: Unified Omni-Platform Client via Flutter (OmniShop)
 - **Status:** Accepted
-- **Context:** Merchants require mobile apps (iOS & Android) for store monitoring, push notifications, and barcode scanning, plus desktop apps (Windows & macOS) for high-volume POS and warehouse operations.
-- **Decision:** Build `apps/vendr-omni-app` as a single Flutter codebase with Clean Architecture and Riverpod, delivering native binaries for all 4 platforms from one repository.
+- **Context:** Merchants require mobile apps (iOS & Android) for store monitoring, push notifications, and barcode scanning, plus desktop apps (Windows, macOS, Linux) for high-volume POS and warehouse operations, all linked via a single merchant/staff account.
+- **Decision:** Build `apps/omnishop` as a single Flutter codebase with Clean Architecture and Riverpod, delivering native binaries for all 5 platforms from one repository, synchronized via unified account authentication.
 - **Consequences:**
-  - 100% UI and business logic reuse across iOS, Android, Windows, and macOS.
+  - 100% UI and business logic reuse across iOS, Android, Windows, macOS, and Linux.
+  - POS registers on Windows/macOS immediately sync inventory and orders with warehouse mobile barcode scanners.
+  - Eliminates the need for costly proprietary hardware (e.g. $799 Shopify POS Go).
   - Direct hardware access (camera barcode scanning, receipt printers).
   - High rendering performance (60/120 FPS Impeller engine).
 
