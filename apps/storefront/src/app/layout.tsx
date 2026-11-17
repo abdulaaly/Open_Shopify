@@ -5,8 +5,8 @@ import { StorefrontHeader } from "../components/StorefrontHeader";
 import { CartDrawer } from "../components/CartDrawer";
 
 export const metadata = {
-  title: "Apex Apparel Co. | Powered by VENDR",
-  description: "Modern minimalist apparel powered by the sovereign VENDR commerce engine.",
+  title: "Apex Apparel Co. | Powered by Open Shopify",
+  description: "Modern minimalist apparel powered by the sovereign Open Shopify commerce engine and OmniShop POS.",
 };
 
 export default function RootLayout({
@@ -22,7 +22,7 @@ export default function RootLayout({
           <CartDrawer />
           <main className="flex-1">{children}</main>
           <footer className="border-t border-slate-100 py-12 px-6 bg-slate-50 text-slate-500 text-xs text-center">
-            <p>© 2026 Apex Apparel Co. Powered by <strong>VENDR</strong> Open-Source Commerce Engine.</p>
+            <p>© 2026 Apex Apparel Co. Powered by <strong>Open Shopify</strong> Open-Source Commerce Engine.</p>
           </footer>
         </CartProvider>
       </body>

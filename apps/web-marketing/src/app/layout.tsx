@@ -4,9 +4,9 @@ import { MarketingNavbar } from "../components/MarketingNavbar";
 import { MarketingFooter } from "../components/MarketingFooter";
 
 export const metadata = {
-  title: "VENDR — Open-Source Enterprise Commerce Engine (Shopify Alternative)",
+  title: "Open Shopify — Open-Source Enterprise Commerce Engine (Shopify Alternative)",
   description:
-    "Zero transaction fees. Sandboxed sub-millisecond WASM functions. Unified Web Admin, Storefront, and Flutter Mobile/POS in one single codebase.",
+    "Zero transaction fees. Sandboxed sub-millisecond WASM functions. Next.js 15 Storefront and OmniShop Unified POS (iOS, Android, Windows, macOS, Linux).",
 };
 
 export default function RootLayout({

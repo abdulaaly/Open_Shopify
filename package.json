@@ -1,8 +1,8 @@
 {
-  "name": "vendr-monorepo",
+  "name": "open-shopify",
   "version": "1.0.0",
   "private": true,
-  "description": "VENDR — Open-Source Enterprise Commerce Engine (Shopify-Killer Architecture)",
+  "description": "Open Shopify — Open-Source Enterprise Commerce Engine (Shopify-Killer Architecture) with OmniShop Multi-Platform POS",
   "workspaces": [
     "apps/*",
     "packages/*"

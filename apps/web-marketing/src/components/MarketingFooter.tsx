@@ -13,12 +13,12 @@ export function MarketingFooter() {
           <div className="col-span-2 space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-emerald-500 flex items-center justify-center font-black text-black text-base">
-                V
+                O
               </div>
-              <span className="text-lg font-bold text-white tracking-tight">VENDR</span>
+              <span className="text-lg font-bold text-white tracking-tight">Open Shopify</span>
             </div>
             <p className="text-zinc-400 max-w-sm leading-relaxed">
-              The high-performance, open-source enterprise commerce engine. Zero transaction taxes, pure WASM functions, and unified cross-platform clients.
+              The high-performance, open-source enterprise commerce engine with OmniShop cross-platform POS. Zero transaction taxes, pure WASM functions, and sovereign data ownership.
             </p>
             <div className="flex items-center gap-2 text-emerald-400">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -49,7 +49,7 @@ export function MarketingFooter() {
               </li>
               <li>
                 <a href="#omnichannel" className="hover:text-white transition-colors">
-                  Flutter POS &amp; Mobile
+                  OmniShop Mobile &amp; POS
                 </a>
               </li>
               <li>
@@ -83,12 +83,12 @@ export function MarketingFooter() {
               </li>
               <li>
                 <a
-                  href="https://github.com/abdulaaly/vendr"
+                  href="https://github.com/abdulaaly/Open_Shopify"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
                 >
-                  GitHub Repository
+                  GitHub: Open_Shopify
                 </a>
               </li>
             </ul>
@@ -102,7 +102,7 @@ export function MarketingFooter() {
             <ul className="space-y-2">
               <li>
                 <a
-                  href="https://github.com/abdulaaly/vendr/blob/main/LICENSE"
+                  href="https://github.com/abdulaaly/Open_Shopify/blob/main/LICENSE"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
@@ -112,7 +112,7 @@ export function MarketingFooter() {
               </li>
               <li>
                 <a
-                  href="https://github.com/abdulaaly/vendr/blob/main/SECURITY.md"
+                  href="https://github.com/abdulaaly/Open_Shopify/blob/main/SECURITY.md"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
@@ -122,7 +122,7 @@ export function MarketingFooter() {
               </li>
               <li>
                 <a
-                  href="https://github.com/abdulaaly/vendr/blob/main/CONTRIBUTING.md"
+                  href="https://github.com/abdulaaly/Open_Shopify/blob/main/CONTRIBUTING.md"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
@@ -136,9 +136,9 @@ export function MarketingFooter() {
 
         {/* Bottom row */}
         <div className="pt-8 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-500 text-[11px]">
-          <p>© 2026 Project VENDR Contributors. Released under Apache License 2.0.</p>
+          <p>© 2026 Open Shopify Contributors. Released under Apache License 2.0.</p>
           <p className="max-w-md text-center sm:text-right">
-            Shopify is a registered trademark of Shopify Inc. VENDR is an independent open-source project and is not affiliated with or endorsed by Shopify Inc.
+            Shopify is a registered trademark of Shopify Inc. Open Shopify is an independent open-source project and is not affiliated with or endorsed by Shopify Inc.
           </p>
         </div>
       </div>

@@ -1,8 +1,8 @@
 {
-  "project": "VENDR",
-  "name": "vendr-commerce",
+  "project": "Open Shopify",
+  "name": "open-shopify",
   "version": "1.0.0",
-  "description": "Open-Source Enterprise Commerce Engine (Shopify-Killer Architecture)",
+  "description": "Open Shopify — Open-Source Enterprise Commerce Engine (Shopify-Killer Architecture) with OmniShop Multi-Platform POS",
   "constitution": {
     "playwright_ban": true,
     "no_ai_slop": true,

@@ -37,14 +37,14 @@ export const AdminSidebar: React.FC = () => {
       <div className="h-14 border-b border-slate-200 dark:border-slate-800 px-4 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-xs shadow-sm">
-            V
+            O
           </div>
           <div className="flex flex-col">
             <span className="font-semibold text-xs tracking-tight text-slate-900 dark:text-slate-100 flex items-center gap-1">
               Apex Apparel <ChevronDown className="w-3 h-3 text-slate-400" />
             </span>
             <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-mono">
-              apex-apparel.vendr.local
+              apex-apparel.openshopify.local
             </span>
           </div>
         </div>

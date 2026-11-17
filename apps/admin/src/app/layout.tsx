@@ -4,8 +4,8 @@ import { AdminSidebar } from "../components/AdminSidebar";
 import { AdminHeader } from "../components/AdminHeader";
 
 export const metadata = {
-  title: "VENDR Merchant Admin",
-  description: "Open-Source Sovereign Commerce Engine Admin",
+  title: "Open Shopify Merchant Admin",
+  description: "Open-Source Sovereign Commerce Engine Admin with OmniShop Sync",
 };
 
 export default function RootLayout({

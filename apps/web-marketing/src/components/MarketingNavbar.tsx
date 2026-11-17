@@ -15,13 +15,13 @@ export function MarketingNavbar() {
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-2 group">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center font-black text-black text-lg shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-                V
+                O
               </div>
               <span className="text-xl font-bold tracking-tight text-white group-hover:text-emerald-400 transition-colors">
-                VENDR
+                Open Shopify
               </span>
               <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                Open Source
+                OmniShop Native
               </span>
             </Link>
           </div>
@@ -32,7 +32,7 @@ export function MarketingNavbar() {
               Platform
             </a>
             <a href="#omnichannel" className="hover:text-white transition-colors">
-              Omnichannel & POS
+              OmniShop & POS
             </a>
             <a href="#pricing" className="hover:text-white transition-colors">
               ROI Calculator
@@ -41,7 +41,7 @@ export function MarketingNavbar() {
               Developer & WASM
             </a>
             <a
-              href="https://github.com/abdulaaly/vendr"
+              href="https://github.com/abdulaaly/Open_Shopify"
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-1.5 hover:text-white transition-colors"
@@ -49,7 +49,7 @@ export function MarketingNavbar() {
               <GitBranch className="w-4 h-4 text-emerald-400" />
               <span>GitHub</span>
               <span className="bg-zinc-800 text-zinc-400 px-1.5 py-0.5 rounded text-[11px] font-mono">
-                ★ 12.4k
+                Open_Shopify
               </span>
             </a>
           </div>
