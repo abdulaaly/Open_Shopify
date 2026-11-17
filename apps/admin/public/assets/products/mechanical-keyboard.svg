@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgKbd" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <filter id="shadowKbd" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" rx="32" fill="url(#bgKbd)\"/>
+  
+  <circle cx="400" cy="380" r="320" fill="#10b981" opacity="0.04" filter="blur(60px)"/>
+
+  <!-- Keyboard Case 3D Angle -->
+  <g filter="url(#shadowKbd)">
+    <!-- Anodized Aluminum Chassis -->
+    <rect x="140" y="250" width="520" height="280" rx="20" fill="#18181b" stroke="#3f3f46" stroke-width="3"/>
+    <rect x="155" y="265" width="490" height="250" rx="12" fill="#09090b"/>
+    
+    <!-- Rotary Knob top-right -->
+    <circle cx="615" cy="295" r="16" fill="#10b981" stroke="#34d399" stroke-width="2"/>
+    <circle cx="615" cy="295" r="6" fill="#064e3b"/>
+
+    <!-- Key Rows -->
+    <!-- Row 1: Function -->
+    <g fill="#27272a" stroke="#3f3f46" stroke-width="1">
+      <rect x="170" y="280" width="30" height="24" rx="4" fill="#ef4444"/>
+      <rect x="210" y="280" width="28" height="24" rx="4"/>
+      <rect x="245" y="280" width="28" height="24" rx="4"/>
+      <rect x="280" y="280" width="28" height="24" rx="4"/>
+      <rect x="315" y="280" width="28" height="24" rx="4"/>
+      <rect x="360" y="280" width="28" height="24" rx="4"/>
+      <rect x="395" y="280" width="28" height="24" rx="4"/>
+      <rect x="430" y="280" width="28" height="24" rx="4"/>
+      <rect x="465" y="280" width="28" height="24" rx="4"/>
+      <rect x="510" y="280" width="28" height="24" rx="4"/>
+      <rect x="545" y="280" width="28" height="24" rx="4"/>
+    </g>
+
+    <!-- Row 2: Alphas -->
+    <g fill="#18181b" stroke="#3f3f46" stroke-width="1">
+      <rect x="170" y="320" width="38" height="32" rx="4"/>
+      <rect x="215" y="320" width="32" height="32" rx="4"/>
+      <rect x="253" y="320" width="32" height="32" rx="4"/>
+      <rect x="291" y="320" width="32" height="32" rx="4"/>
+      <rect x="329" y="320" width="32" height="32" rx="4"/>
+      <rect x="367" y="320" width="32" height="32" rx="4"/>
+      <rect x="405" y="320" width="32" height="32" rx="4"/>
+      <rect x="443" y="320" width="32" height="32" rx="4"/>
+      <rect x="481" y="320" width="32" height="32" rx="4"/>
+      <rect x="519" y="320" width="32" height="32" rx="4"/>
+      <rect x="557" y="320" width="60" height="32" rx="4"/>
+    </g>
+
+    <!-- Row 3: Home -->
+    <g fill="#18181b" stroke="#3f3f46" stroke-width="1">
+      <rect x="170" y="365" width="48" height="32" rx="4"/>
+      <rect x="225" y="365" width="32" height="32" rx="4"/>
+      <rect x="263" y="365" width="32" height="32" rx="4"/>
+      <rect x="301" y="365" width="32" height="32" rx="4"/>
+      <rect x="339" y="365" width="32" height="32" rx="4"/>
+      <rect x="377" y="365" width="32" height="32" rx="4"/>
+      <rect x="415" y="365" width="32" height="32" rx="4"/>
+      <rect x="453" y="365" width="32" height="32" rx="4"/>
+      <rect x="491" y="365" width="32" height="32" rx="4"/>
+      <rect x="529" y="365" width="88" height="32" rx="4" fill="#10b981"/>
+    </g>
+
+    <!-- Row 4: Spacebar -->
+    <g fill="#18181b" stroke="#3f3f46" stroke-width="1">
+      <rect x="170" y="415" width="54" height="34" rx="4"/>
+      <rect x="230" y="415" width="40" height="34" rx="4"/>
+      <rect x="278" y="415" width="220" height="34" rx="4" fill="#27272a"/>
+      <rect x="506" y="415" width="40" height="34" rx="4"/>
+      <rect x="552" y="415" width="30" height="34" rx="4"/>
+      <rect x="588" y="415" width="30" height="34" rx="4"/>
+    </g>
+    <!-- RGB Glow Under Spacebar -->
+    <rect x="280" y="452" width="216" height="4" rx="2" fill="#10b981" opacity="0.8" filter="blur(2px)"/>
+  </g>
+  
+  <g transform="translate(48, 710)">
+    <rect width="250" height="42" rx="21" fill="#18181b" stroke="#27272a" stroke-width="1"/>
+    <circle cx="21" cy="21" r="5" fill="#10b981"/>
+    <text x="36" y="26" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">KEYVOX PRO 75% WIRELESS</text>
+  </g>
+  <text x="752" y="736" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#10b981" text-anchor="end">$229.00 USD</text>
+</svg>

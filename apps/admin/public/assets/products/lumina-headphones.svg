@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgHdp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <linearGradient id="silverArm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e2e8f0"/>
+      <stop offset="50%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    <filter id="shadowHdp" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="24" stdDeviation="30" flood-color="#000000" flood-opacity="0.7"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" rx="32" fill="url(#bgHdp)"/>
+  
+  <circle cx="400" cy="380" r="300" fill="#a855f7" opacity="0.06" filter="blur(60px)"/>
+
+  <g filter="url(#shadowHdp)">
+    <!-- Headband Arch -->
+    <path d="M 230 420 
+             C 230 200, 570 200, 570 420" 
+          fill="none" stroke="#27272a" stroke-width="44" stroke-linecap="round"/>
+    <!-- Headband Cushion -->
+    <path d="M 280 340 
+             C 320 250, 480 250, 520 340" 
+          fill="none" stroke="#09090b" stroke-width="28" stroke-linecap="round"/>
+    
+    <!-- Metal Extension Sliders -->
+    <rect x="216" y="380" width="28" height="70" rx="6" fill="url(#silverArm)"/>
+    <rect x="556" y="380" width="28" height="70" rx="6" fill="url(#silverArm)"/>
+    
+    <!-- Left Ear Cup -->
+    <g transform="translate(160, 390)">
+      <rect x="0" y="0" width="110" height="170" rx="48" fill="#18181b" stroke="#3f3f46" stroke-width="3"/>
+      <!-- Soft memory foam cushion -->
+      <rect x="12" y="12" width="86" height="146" rx="40" fill="#09090b"/>
+      <!-- Driver grille center -->
+      <circle cx="55" cy="85" r="28" fill="#18181b" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <circle cx="55" cy="85" r="8" fill="#10b981"/>
+    </g>
+
+    <!-- Right Ear Cup -->
+    <g transform="translate(530, 390)">
+      <rect x="0" y="0" width="110" height="170" rx="48" fill="#18181b" stroke="#3f3f46" stroke-width="3"/>
+      <rect x="12" y="12" width="86" height="146" rx="40" fill="#09090b"/>
+      <circle cx="55" cy="85" r="28" fill="#18181b" stroke="#10b981" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <circle cx="55" cy="85" r="8" fill="#10b981"/>
+    </g>
+  </g>
+  
+  <g transform="translate(48, 710)">
+    <rect width="250" height="42" rx="21" fill="#18181b" stroke="#27272a" stroke-width="1"/>
+    <circle cx="21" cy="21" r="5" fill="#a855f7"/>
+    <text x="36" y="26" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">LUMINA ANC WIRELESS</text>
+  </g>
+  <text x="752" y="736" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#10b981" text-anchor="end">$349.00 USD</text>
+</svg>
