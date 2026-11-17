@@ -76,11 +76,13 @@ export const CartDrawer: React.FC = () => {
             ) : (
               items.map((item) => (
                 <div key={item.id} className="pt-4 first:pt-0 flex gap-4">
-                  <img
-                    src={item.product.images[0]}
-                    alt={item.product.title}
-                    className="w-16 h-20 object-cover rounded bg-slate-100 border border-slate-200"
-                  />
+                  <div className="w-16 h-20 rounded bg-slate-900 border border-slate-200 overflow-hidden flex items-center justify-center shrink-0">
+                    <img
+                      src={item.product.images[0] || "/assets/products/heavyweight-tee.svg"}
+                      alt={item.product.title}
+                      className="w-full h-full object-contain p-1"
+                    />
+                  </div>
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex items-start justify-between">

@@ -1,6 +1,7 @@
 import { Product, Order, Customer } from "@vendr/types";
 
 export const initialProducts: Product[] = [
+  // Store 1: Apex Apparel Co. (ten_apex_apparel)
   {
     id: "prod_heavyweight_tee",
     tenantId: "ten_apex_apparel",
@@ -13,8 +14,7 @@ export const initialProducts: Product[] = [
     status: "ACTIVE",
     tags: ["cotton", "basics", "heavyweight", "apparel"],
     images: [
-      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=800&auto=format&fit=crop&q=80"
+      "/assets/products/heavyweight-tee.svg",
     ],
     options: [
       { name: "Size", values: ["S", "M", "L", "XL"] },
@@ -77,7 +77,7 @@ export const initialProducts: Product[] = [
     status: "ACTIVE",
     tags: ["jacket", "outerwear", "canvas", "menswear"],
     images: [
-      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&auto=format&fit=crop&q=80"
+      "/assets/products/architect-overshirt.svg",
     ],
     options: [
       { name: "Size", values: ["M", "L", "XL"] }
@@ -124,7 +124,7 @@ export const initialProducts: Product[] = [
     status: "ACTIVE",
     tags: ["denim", "selvedge", "japan", "jeans"],
     images: [
-      "https://images.unsplash.com/photo-1542272604-780c96856592?w=800&auto=format&fit=crop&q=80"
+      "/assets/products/selvedge-denim.svg",
     ],
     options: [
       { name: "Waist", values: ["30", "32", "34"] }
@@ -156,6 +156,129 @@ export const initialProducts: Product[] = [
       }
     ],
     totalInventory: 43,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+
+  // Store 2: Karachi Tech Hub (ten_karachi_tech)
+  {
+    id: "prod_lumina_anc",
+    tenantId: "ten_karachi_tech",
+    title: "Lumina ANC Wireless Studio Headphones",
+    handle: "lumina-anc-wireless-headphones",
+    description: "Flagship acoustic monitors with dual-chamber dynamic drivers, 45dB hybrid active noise cancellation, and 40-hour battery life with fast Qi wireless charging.",
+    descriptionHtml: "<p>Flagship acoustic monitors with dual-chamber dynamic drivers and 45dB hybrid ANC.</p>",
+    vendor: "Lumina Audio",
+    productType: "Audio",
+    status: "ACTIVE",
+    tags: ["audio", "wireless", "headphones", "bluetooth"],
+    images: [
+      "/assets/products/lumina-headphones.svg",
+    ],
+    options: [
+      { name: "Color", values: ["Space Gray", "Matte Silver"] }
+    ],
+    variants: [
+      {
+        id: "var_lumina_gray",
+        productId: "prod_lumina_anc",
+        title: "Space Gray",
+        sku: "LUM-ANC-GRY",
+        price: 349.0,
+        compareAtPrice: 399.0,
+        requiresShipping: true,
+        selectedOptions: [{ name: "Color", value: "Space Gray" }],
+        inventoryQuantity: 52,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        id: "var_lumina_silver",
+        productId: "prod_lumina_anc",
+        title: "Matte Silver",
+        sku: "LUM-ANC-SLV",
+        price: 349.0,
+        compareAtPrice: 399.0,
+        requiresShipping: true,
+        selectedOptions: [{ name: "Color", value: "Matte Silver" }],
+        inventoryQuantity: 38,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+    ],
+    totalInventory: 90,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "prod_keyvox_keyboard",
+    tenantId: "ten_karachi_tech",
+    title: "Keyvox Pro 75% Custom Mechanical Keyboard",
+    handle: "keyvox-pro-75-mechanical-keyboard",
+    description: "CNC machined 6063 aluminum enclosure with gasket mount suspension, hotswappable PCB, factory lubed tactile switches, and PBT double-shot keycaps.",
+    descriptionHtml: "<p>CNC machined aluminum chassis with gasket mount and hotswappable PCB.</p>",
+    vendor: "Keyvox Studio",
+    productType: "Peripherals",
+    status: "ACTIVE",
+    tags: ["keyboard", "mechanical", "gaming", "custom"],
+    images: [
+      "/assets/products/mechanical-keyboard.svg",
+    ],
+    options: [
+      { name: "Switch", values: ["Tactile Jade", "Linear Quartz"] }
+    ],
+    variants: [
+      {
+        id: "var_keyvox_tactile",
+        productId: "prod_keyvox_keyboard",
+        title: "Tactile Jade Switches",
+        sku: "KVX-75-TAC",
+        price: 229.0,
+        compareAtPrice: 250.0,
+        requiresShipping: true,
+        selectedOptions: [{ name: "Switch", value: "Tactile Jade" }],
+        inventoryQuantity: 44,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+    ],
+    totalInventory: 44,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "prod_omnishop_pos_hw",
+    tenantId: "ten_karachi_tech",
+    title: "OmniShop Hardware POS Smart Terminal",
+    handle: "omnishop-hardware-pos-terminal",
+    description: "All-in-one merchant register with 10.1-inch high-nits touch display, integrated EMV chip/contactless reader, high-speed thermal receipt printer, and 4G LTE backup.",
+    descriptionHtml: "<p>All-in-one merchant register with integrated EMV and contactless reader.</p>",
+    vendor: "Open Shopify Hardware",
+    productType: "Hardware",
+    status: "ACTIVE",
+    tags: ["pos", "hardware", "retail", "omnishop"],
+    images: [
+      "/assets/products/smart-touch-pos.svg",
+    ],
+    options: [
+      { name: "Connectivity", values: ["Wi-Fi + 4G LTE"] }
+    ],
+    variants: [
+      {
+        id: "var_omnishop_pos",
+        productId: "prod_omnishop_pos_hw",
+        title: "Wi-Fi + 4G LTE Edition",
+        sku: "OSH-POS-LTE-01",
+        price: 499.0,
+        compareAtPrice: 599.0,
+        requiresShipping: true,
+        selectedOptions: [{ name: "Connectivity", value: "Wi-Fi + 4G LTE" }],
+        inventoryQuantity: 75,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+    ],
+    totalInventory: 75,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   }
@@ -241,6 +364,7 @@ export const initialOrders: Order[] = [
       lastName: "Vance",
       address1: "Kungsgatan 44",
       city: "Stockholm",
+      province: "Stockholm",
       country: "Sweden",
       zip: "111 35",
     },
@@ -259,6 +383,57 @@ export const initialOrders: Order[] = [
     fulfillments: [],
     tags: ["international"],
     createdAt: new Date(Date.now() - 3600000).toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  // Karachi Tech Hub Order
+  {
+    id: "ord_2001",
+    tenantId: "ten_karachi_tech",
+    orderNumber: 2001,
+    name: "#2001",
+    email: "tariq.mehmood@karachilabs.io",
+    financialStatus: "PAID",
+    fulfillmentStatus: "FULFILLED",
+    currencyCode: "USD",
+    subtotalPrice: 578.0,
+    totalTax: 0,
+    totalShipping: 0,
+    totalDiscounts: 50.0,
+    totalPrice: 528.0,
+    shippingAddress: {
+      firstName: "Tariq",
+      lastName: "Mehmood",
+      address1: "Shahrah-e-Faisal 44-B",
+      city: "Karachi",
+      province: "Sindh",
+      country: "Pakistan",
+      zip: "75300",
+    },
+    lineItems: [
+      {
+        id: "item_21",
+        orderId: "ord_2001",
+        title: "Lumina ANC Wireless Headphones (Space Gray)",
+        sku: "LUM-ANC-GRY",
+        quantity: 1,
+        price: 349.0,
+        totalDiscount: 0,
+        fulfillmentStatus: "FULFILLED",
+      },
+      {
+        id: "item_22",
+        orderId: "ord_2001",
+        title: "Keyvox Pro 75% Mechanical Keyboard",
+        sku: "KVX-75-TAC",
+        quantity: 1,
+        price: 229.0,
+        totalDiscount: 0,
+        fulfillmentStatus: "FULFILLED",
+      }
+    ],
+    fulfillments: [],
+    tags: ["tech-vip", "express"],
+    createdAt: new Date(Date.now() - 43200000).toISOString(),
     updatedAt: new Date().toISOString(),
   }
 ];
@@ -290,6 +465,20 @@ export const initialCustomers: Customer[] = [
     totalSpent: 137.28,
     tags: ["international"],
     createdAt: new Date(Date.now() - 3600000).toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: "cust_03",
+    tenantId: "ten_karachi_tech",
+    firstName: "Tariq",
+    lastName: "Mehmood",
+    displayName: "Tariq Mehmood",
+    email: "tariq.mehmood@karachilabs.io",
+    phone: "+92 300 1234567",
+    ordersCount: 3,
+    totalSpent: 1120.0,
+    tags: ["tech-vip"],
+    createdAt: new Date(Date.now() - 720000000).toISOString(),
     updatedAt: new Date().toISOString(),
   }
 ];

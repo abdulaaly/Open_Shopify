@@ -28,6 +28,8 @@ model Tenant {
   webhooks     Webhook[]
   metafields   Metafield[]
   metaobjects  Metaobject[]
+  themeConfigs ThemeConfig[]
+  sessions     Session[]
 
   @@map("tenants")
 }
@@ -44,6 +46,7 @@ model User {
   updatedAt    DateTime @updatedAt
 
   tenant       Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  sessions     Session[]
 
   @@unique([tenantId, email])
   @@index([tenantId])
@@ -346,4 +349,35 @@ model Metaobject {
   @@unique([tenantId, type, handle])
   @@index([tenantId, type])
   @@map("metaobjects")
+}
+
+model ThemeConfig {
+  id         String   @id @default(uuid())
+  tenantId   String   @unique
+  themeName  String   @default("Obsidian Tech")
+  settings   Json     @default("{}")
+  sections   Json     @default("[]")
+  colors     Json     @default("{}")
+  typography Json     @default("{}")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  tenant     Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("theme_configs")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  tenantId     String
+  userId       String
+  sessionToken String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+
+  tenant       Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, sessionToken])
+  @@map("sessions")
 }

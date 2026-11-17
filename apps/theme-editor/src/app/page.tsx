@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Smartphone,
   Tablet,
@@ -14,6 +14,8 @@ import {
   Plus,
   Eye,
   Settings2,
+  CheckCircle2,
+  Loader2,
 } from "lucide-react";
 
 interface SectionConfig {
@@ -67,7 +69,7 @@ const defaultSections: SectionConfig[] = [
     name: "Footer",
     type: "footer",
     settings: {
-      copyright: "© 2026 Apex Apparel Co. Powered by VENDR.",
+      copyright: "© 2026 Open Shopify Sovereign Merchant Engine.",
     },
   },
 ];
@@ -77,7 +79,37 @@ export default function ThemeEditorPage() {
   const [activeSectionId, setActiveSectionId] = useState<string>("sec_hero");
   const [viewport, setViewport] = useState<"desktop" | "tablet" | "mobile">("desktop");
   const [isDirty, setIsDirty] = useState(false);
-  const [selectedPage, setSelectedPage] = useState("Home page (index.json)");
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveToast, setSaveToast] = useState(false);
+  const [tenantSlug, setTenantSlug] = useState("apex-apparel");
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const slug = typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("tenant") || "apex-apparel"
+      : "apex-apparel";
+    setTenantSlug(slug);
+
+    // Fetch theme settings from backend
+    fetch(`http://localhost:4000/api/v1/theme-config?tenant=${slug}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.config) {
+          setSections((prev) =>
+            prev.map((s) => {
+              if (s.id === "sec_hero" && data.config.headline) {
+                return { ...s, settings: { ...s.settings, heading: data.config.headline } };
+              }
+              if (s.id === "sec_announcement" && data.config.announcement) {
+                return { ...s, settings: { ...s.settings, message: data.config.announcement } };
+              }
+              return s;
+            })
+          );
+        }
+      })
+      .catch((err) => console.log("Theme fetch fallback:", err));
+  }, []);
 
   const activeSection = sections.find((s) => s.id === activeSectionId);
 
@@ -92,9 +124,34 @@ export default function ThemeEditorPage() {
     setIsDirty(true);
   };
 
-  const handleSave = () => {
-    setIsDirty(false);
-    alert("Theme configuration saved directly to templates/index.json!");
+  const handleSave = async () => {
+    setIsSaving(true);
+    const heroSec = sections.find((s) => s.id === "sec_hero");
+    const annSec = sections.find((s) => s.id === "sec_announcement");
+
+    try {
+      await fetch(`http://localhost:4000/api/v1/theme-config?tenant=${tenantSlug}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          headline: heroSec?.settings.heading,
+          announcement: annSec?.settings.message,
+        }),
+      });
+
+      setIsDirty(false);
+      setSaveToast(true);
+      setTimeout(() => setSaveToast(false), 3000);
+
+      // Reload preview iframe
+      if (iframeRef.current) {
+        iframeRef.current.src = `http://localhost:3000?tenant=${tenantSlug}&t=${Date.now()}`;
+      }
+    } catch (err) {
+      console.error("Save theme error:", err);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const viewportWidths = {
@@ -108,26 +165,15 @@ export default function ThemeEditorPage() {
       {/* Top Action Bar */}
       <header className="h-14 border-b border-slate-800 bg-slate-950 px-4 flex items-center justify-between shrink-0 text-slate-100">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 font-semibold text-xs text-white">
-            <span className="w-6 h-6 rounded bg-emerald-600 flex items-center justify-center font-bold text-xs">
-              V
+          <div className="flex items-center gap-2 font-bold text-xs text-white">
+            <div className="w-6 h-6 rounded-md overflow-hidden flex items-center justify-center">
+              <img src="/assets/branding/openshopify-icon.svg" alt="Open Shopify" className="w-full h-full object-contain" />
+            </div>
+            <span>Open Shopify Theme Customizer</span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              {tenantSlug}
             </span>
-            <span>VENDR Theme Customizer</span>
           </div>
-
-          <div className="h-4 w-px bg-slate-800" />
-
-          {/* Page Dropdown */}
-          <select
-            value={selectedPage}
-            onChange={(e) => setSelectedPage(e.target.value)}
-            className="h-8 px-2.5 text-xs bg-slate-900 border border-slate-700 rounded text-slate-200 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-          >
-            <option>Home page (index.json)</option>
-            <option>Product page (product.json)</option>
-            <option>Collection page (collection.json)</option>
-            <option>Cart page (cart.json)</option>
-          </select>
         </div>
 
         {/* Center: Viewport Switcher */}
@@ -169,25 +215,23 @@ export default function ThemeEditorPage() {
 
         {/* Right: History & Save Button */}
         <div className="flex items-center gap-3">
-          <div className="flex items-center text-slate-400">
-            <button className="p-1.5 hover:text-slate-200" title="Undo">
-              <Undo2 className="w-4 h-4" />
-            </button>
-            <button className="p-1.5 hover:text-slate-200" title="Redo">
-              <Redo2 className="w-4 h-4" />
-            </button>
-          </div>
+          {saveToast && (
+            <span className="text-xs text-emerald-400 flex items-center gap-1 font-medium animate-in fade-in">
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              <span>Saved &amp; Synced!</span>
+            </span>
+          )}
 
           <button
             onClick={handleSave}
-            disabled={!isDirty}
+            disabled={!isDirty || isSaving}
             className={`h-8 px-4 rounded text-xs font-semibold flex items-center gap-1.5 transition-all ${
-              isDirty
-                ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg"
+              isDirty && !isSaving
+                ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20"
                 : "bg-slate-800 text-slate-500 cursor-not-allowed"
             }`}
           >
-            <Save className="w-3.5 h-3.5" />
+            {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
             <span>Save</span>
           </button>
         </div>
@@ -197,19 +241,12 @@ export default function ThemeEditorPage() {
       <div className="flex flex-1 min-h-0">
         {/* Left Drawer: Section Tree & Settings (80 w) */}
         <aside className="w-80 border-r border-slate-800 bg-slate-950 flex flex-col shrink-0">
-          {/* Header */}
           <div className="p-3 border-b border-slate-800 flex items-center justify-between text-xs font-semibold text-slate-300">
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-emerald-500" />
               <span>Page Sections</span>
             </div>
-            <button
-              onClick={() => alert("Add section picker.")}
-              className="p-1 text-slate-400 hover:text-slate-100 rounded"
-              title="Add section"
-            >
-              <Plus className="w-4 h-4" />
-            </button>
+            <span className="text-[10px] font-mono text-slate-500">JSON Schema 2.0</span>
           </div>
 
           {/* Sections Tree */}
@@ -238,7 +275,7 @@ export default function ThemeEditorPage() {
 
           {/* Settings Inspector Panel */}
           {activeSection && (
-            <div className="p-4 bg-slate-900 space-y-4 overflow-y-auto max-h-72">
+            <div className="p-4 bg-slate-900 space-y-4 overflow-y-auto max-h-80">
               <div className="flex items-center gap-2 text-xs font-semibold text-slate-200 border-b border-slate-800 pb-2">
                 <Settings2 className="w-3.5 h-3.5 text-emerald-400" />
                 <span>{activeSection.name} Settings</span>
@@ -253,7 +290,7 @@ export default function ThemeEditorPage() {
                     type="text"
                     value={value as string}
                     onChange={(e) => handleSettingChange(key, e.target.value)}
-                    className="w-full h-7 px-2 text-xs bg-slate-950 border border-slate-700 rounded text-slate-100 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono"
+                    className="w-full h-8 px-2.5 text-xs bg-slate-950 border border-slate-700 rounded text-slate-100 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono"
                   />
                 </div>
               ))}
@@ -274,14 +311,15 @@ export default function ThemeEditorPage() {
                 <span className="w-2.5 h-2.5 rounded-full bg-slate-300" />
               </div>
               <span className="font-mono text-[10px] text-slate-500">
-                https://apex-apparel.vendr.local/preview
+                http://localhost:3000?tenant={tenantSlug}
               </span>
               <Eye className="w-3.5 h-3.5 opacity-60" />
             </div>
 
             {/* Interactive Storefront Preview Frame */}
             <iframe
-              src="http://localhost:3000"
+              ref={iframeRef}
+              src={`http://localhost:3000?tenant=${tenantSlug}`}
               className="w-full flex-1 border-0"
               title="Storefront Live Preview"
             />

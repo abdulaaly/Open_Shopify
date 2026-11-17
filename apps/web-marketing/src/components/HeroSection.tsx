@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { Terminal, Copy, Check, ArrowRight, Sparkles, Zap, ShieldCheck, RefreshCw, ShoppingBag } from "lucide-react";
+import { Terminal, Copy, Check, ArrowRight, Sparkles, Zap, ShieldCheck, RefreshCw, ShoppingBag, Store } from "lucide-react";
+import { TrialModal } from "./TrialModal";
 
 type ThemePreset = "obsidian" | "nordic" | "brutalist";
 
@@ -10,8 +11,10 @@ export function HeroSection() {
   const [selectedTheme, setSelectedTheme] = useState<ThemePreset>("obsidian");
   const [cartCount, setCartCount] = useState(1);
   const [isAdding, setIsAdding] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const command = "npx vendr-cli@latest init my-store";
+  const command = "npx open-shopify@latest init my-store";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(command);
@@ -27,6 +30,11 @@ export function HeroSection() {
     }, 300);
   };
 
+  const handleTrialSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+
   return (
     <section className="relative pt-32 pb-24 overflow-hidden">
       {/* Background radial gradient halos */}
@@ -38,7 +46,7 @@ export function HeroSection() {
           {/* Top Announcement Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-xs font-semibold backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-            <span>PROJECT VENDR 1.0 • OPEN-SOURCE ENTERPRISE COMMERCE</span>
+            <span>OPEN SHOPIFY 1.0 • OPEN-SOURCE ENTERPRISE COMMERCE</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
             <span className="text-emerald-400">0% Platform Fees</span>
           </div>
@@ -55,25 +63,47 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p className="text-lg sm:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Eliminate Shopify&apos;s 2% gateway penalties and $2,300/mo Plus paywalls. Built with Fastify, pure WASM functions, Next.js 15, and unified Flutter iOS/Android &amp; Desktop POS in a single repository.
+            Eliminate Shopify&apos;s 2% gateway penalties and $2,300/mo Plus paywalls. Built with Fastify, pure WASM functions, Next.js 15, and unified OmniShop POS for iOS, Android &amp; Desktop in a single repository.
           </p>
 
+          {/* Real Shopify-Style Email Signup Bar */}
+          <div className="pt-2 max-w-xl mx-auto">
+            <form onSubmit={handleTrialSubmit} className="flex flex-col sm:flex-row gap-2.5 p-1.5 rounded-2xl bg-zinc-900/90 border border-zinc-700/80 shadow-2xl backdrop-blur-xl">
+              <input
+                type="email"
+                required
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+                placeholder="Enter your email address"
+                className="flex-1 px-4 py-3 bg-transparent text-white text-sm placeholder-zinc-500 focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-sm shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+              >
+                <span>Start free trial</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </form>
+            <p className="text-[11px] text-zinc-500 mt-2 text-center">
+              Try Open Shopify free for 3 days, no credit card required. By entering your email, you agree to receive marketing emails from Open Shopify.
+            </p>
+          </div>
+
           {/* Action Row: CTAs & Terminal Copy */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="http://localhost:3001"
-              target="_blank"
-              rel="noreferrer"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-400 text-black font-semibold text-sm shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="w-full sm:w-auto px-6 py-3 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 font-semibold text-xs flex items-center justify-center gap-2 transition-all"
             >
-              <span>Launch Self-Hosted Store</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+              <Store className="w-4 h-4 text-emerald-400" />
+              <span>Instant Store Provisioning</span>
+            </button>
 
             {/* Interactive Terminal Pill */}
-            <div className="w-full sm:w-auto flex items-center justify-between gap-3 px-4 py-3 rounded-full border border-zinc-700 bg-zinc-900/90 text-xs font-mono text-zinc-300 shadow-md">
+            <div className="w-full sm:w-auto flex items-center justify-between gap-3 px-4 py-2.5 rounded-full border border-zinc-700 bg-zinc-900/90 text-xs font-mono text-zinc-300 shadow-md">
               <div className="flex items-center gap-2">
-                <Terminal className="w-4 h-4 text-emerald-400" />
+                <Terminal className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-emerald-400 font-bold">$</span>
                 <span className="select-all">{command}</span>
               </div>
@@ -83,7 +113,7 @@ export function HeroSection() {
                 title="Copy command"
                 aria-label="Copy command"
               >
-                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
             </div>
           </div>
@@ -100,7 +130,7 @@ export function HeroSection() {
                 <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
               </div>
               <span className="text-xs font-mono text-zinc-400">
-                https://store.vendr.local/products/lumina-anc-headphones
+                https://store.openshopify.local/products/lumina-anc-headphones
               </span>
             </div>
 
@@ -153,7 +183,7 @@ export function HeroSection() {
             }`}
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Product Media */}
+              {/* Product Media (Local Verified High-Craft Asset) */}
               <div className="relative rounded-xl overflow-hidden aspect-square bg-zinc-900/40 border border-white/5 flex items-center justify-center p-8 group">
                 <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
                   <span className="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-emerald-500 text-black shadow-md">
@@ -164,7 +194,7 @@ export function HeroSection() {
                   </span>
                 </div>
                 <img
-                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80"
+                  src="/assets/products/lumina-headphones.svg"
                   alt="Lumina ANC Headphones"
                   className="w-full h-full object-contain filter drop-shadow-2xl group-hover:scale-105 transition-transform duration-500"
                 />
@@ -178,7 +208,7 @@ export function HeroSection() {
                       Acoustic Flagship
                     </span>
                     <span className="text-xs text-zinc-500">•</span>
-                    <span className="text-xs text-zinc-400 font-mono">SKU: VENDR-ANC-PRO</span>
+                    <span className="text-xs text-zinc-400 font-mono">SKU: OSH-ANC-PRO</span>
                   </div>
                   <h2
                     className={`text-2xl sm:text-3xl font-extrabold tracking-tight ${
@@ -261,6 +291,13 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* Trial Provisioning Modal */}
+      <TrialModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        defaultEmail={emailInput}
+      />
     </section>
   );
 }
