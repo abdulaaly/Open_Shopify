@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPos" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b"/>
+      <stop offset="100%" stop-color="#09090b"/>
+    </linearGradient>
+    <filter id="shadowPos" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="24" stdDeviation="30" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  <rect width="800" height="800" rx="32" fill="url(#bgPos)"/>
+  
+  <circle cx="400" cy="380" r="320" fill="#10b981" opacity="0.05" filter="blur(60px)"/>
+
+  <!-- OmniShop POS Terminal Device -->
+  <g filter="url(#shadowPos)">
+    <!-- Base / Stand -->
+    <ellipse cx="400" cy="580" rx="180" ry="35" fill="#18181b" stroke="#27272a" stroke-width="2"/>
+    <rect x="375" y="450" width="50" height="130" fill="#27272a"/>
+    
+    <!-- Angled Display Housing -->
+    <rect x="200" y="200" width="400" height="280" rx="20" fill="#09090b" stroke="#3f3f46" stroke-width="3"/>
+    
+    <!-- Active Glass Screen with OmniShop UI -->
+    <rect x="220" y="220" width="360" height="240" rx="12" fill="#0f172a"/>
+    
+    <!-- Status Bar -->
+    <rect x="220" y="220" width="360" height="24" fill="#020617"/>
+    <circle cx="236" cy="232" r="4" fill="#10b981"/>
+    <text x="248" y="236" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#94a3b8">OmniShop POS Online (Karachi Hub)</text>
+    <text x="565" y="236" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#94a3b8" text-anchor="end">9:41 AM</text>
+    
+    <!-- Cart / Sale Summary Screen -->
+    <g transform="translate(240, 260)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#f8fafc">CURRENT ORDER #1089</text>
+      
+      <!-- Line Items -->
+      <text x="0" y="50" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">1x Heavyweight Boxy Tee</text>
+      <text x="320" y="50" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" text-anchor="end">$58.00</text>
+      
+      <text x="0" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#cbd5e1">1x Selvedge Raw Denim</text>
+      <text x="320" y="75" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#f8fafc" text-anchor="end">$210.00</text>
+      
+      <line x1="0" y1="95" x2="320" y2="95" stroke="#334155" stroke-width="1"/>
+      
+      <text x="0" y="115" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">Total Due</text>
+      <text x="320" y="115" font-family="system-ui, sans-serif" font-size="16" font-weight="900" fill="#10b981" text-anchor="end">$268.00</text>
+      
+      <!-- Tap to Pay Button -->
+      <rect x="0" y="140" width="320" height="42" rx="8" fill="#10b981"/>
+      <text x="160" y="166" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#000" text-anchor="middle">TAP / INSERT CARD OR SCAN QR</text>
+    </g>
+
+    <!-- Built-in Chip / NFC Card Reader Slot -->
+    <rect x="585" y="260" width="10" height="120" rx="3" fill="#27272a"/>
+  </g>
+  
+  <g transform="translate(48, 710)">
+    <rect width="250" height="42" rx="21" fill="#18181b" stroke="#27272a" stroke-width="1"/>
+    <circle cx="21" cy="21" r="5" fill="#10b981"/>
+    <text x="36" y="26" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">OMNISHOP HARDWARE TERMINAL</text>
+  </g>
+  <text x="752" y="736" font-family="system-ui, sans-serif" font-size="16" font-weight="800" fill="#10b981" text-anchor="end">$499.00 USD</text>
+</svg>
